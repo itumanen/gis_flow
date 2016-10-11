@@ -16,6 +16,9 @@ int main(int argc, char** argv) {
     FD_Grid* fdGrid;
     FA_Grid* faGrid;
     
+    string outputFD = "flow_direction.txt";
+    string outputFA = "flow_accumulation.txt";
+    
     // Original grid
     elevGrid = new Grid(argv[1]);
     elevGrid->printInfo();
@@ -25,11 +28,13 @@ int main(int argc, char** argv) {
     fdGrid->computeFlowDir(elevGrid);
     printf("\nFlow direction grid\n");
     fdGrid->printGrid();
+    fdGrid->writeGridToFile(outputFD);
 
     faGrid = new FA_Grid(elevGrid);
     printf("\nFlow accumulation grid\n");
     faGrid->computeFlow(fdGrid);
     faGrid->printGrid();
+    faGrid->writeGridToFile(outputFA);
 
     // delete memory from array
     elevGrid->freeGridData();

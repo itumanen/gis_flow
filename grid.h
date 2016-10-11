@@ -30,7 +30,7 @@ public:
 	void multiply(float factor);
 	void freeGridData();
 
-	void gridToFile(char* fileName);
+	void writeGridToFile(string fileName);
 
 	// getters
 	int getNumCols() { return this->numCols; }

@@ -134,19 +134,35 @@ void Grid::readInGridFile(char* fileName) {
 }
 
 void Grid::multiply(float factor) {
-	cout << "Multiplying by factor " << factor << endl;
+
 	for (int row = 0; row < this->numRows; row++) {
 		for (int col = 0; col < this->numCols; col++) {
+	
 			if (this->gridVals[row][col] == this->nodata_value) {
 				continue;
 			}
+	
 			float value = this->gridVals[row][col];
 			this->gridVals[row][col] = value * factor;
+	
 		}
 	}
+
 }
 
-void Grid::gridToFile(char* fileName) {
+void Grid::writeGridToFile(string fileName) {
+	
+	ofstream outputFile;
+	outputFile.open(fileName);
+	
+	for (int row = 0; row < this->numRows; row++) {
+		for (int col = 0; col < this->numCols; col++) {
+			outputFile << this->gridVals[row][col] << "\t";
+		}
+		outputFile << "\n";
+	}
+
+	outputFile.close();
 
 }
 
