@@ -67,7 +67,7 @@ void FA_Grid::initializeEmptyGrids() {
 		for (int j = 0; j < this->numCols; j++) {
 
 			this->computedGrid[i][j] = 0;
-
+			this->cache[i][j] = 0;
 		}
 	}
 
