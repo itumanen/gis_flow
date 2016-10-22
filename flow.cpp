@@ -40,4 +40,5 @@ int main(int argc, char** argv) {
     faGrid->freeGridData();
 
     return(EXIT_SUCCESS);
+
 }

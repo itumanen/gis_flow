@@ -61,6 +61,7 @@ void FA_Grid::initializeGrid(Grid* elevGrid) {
 	}
 }
 
+<<<<<<< HEAD
 void FA_Grid::initializeEmptyGrids() {
 
 	for (int i = 0; i < this->numRows; i++) {
