@@ -44,6 +44,7 @@ public:
 
 	float** getGridValues() {return this->gridVals; }
 	float getGridValueAt(int i, int j) { return this->gridVals[i][j]; }
+	bool isNoData(int i, int j) { return (this->getGridValueAt(i,j) == this->nodata_value); }
 	float* getRow(int row) {return this->gridVals[row]; }
 
 	// setters
