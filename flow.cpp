@@ -1,5 +1,6 @@
 #include "fa_grid.h"
 #include <cstring>
+#include <time.h>
 
 int main(int argc, char** argv) {
 
@@ -15,6 +16,8 @@ int main(int argc, char** argv) {
     Grid* elevGrid;
     FD_Grid* fdGrid;
     FA_Grid* faGrid;
+
+    clock_t timestamp = clock();
     
     // Original grid
     elevGrid = new Grid(argv[1]);
@@ -33,6 +36,10 @@ int main(int argc, char** argv) {
 
     char* outputFA = argv[3];
     faGrid->writeGridToFile(outputFA);
+
+    timestamp = clock() - timestamp;
+    printf("Timestamp is %lu\n", timestamp);
+    printf("Run time = %f\n", (float)timestamp / CLOCKS_PER_SEC);
 
     // delete memory from array
     elevGrid->freeGridData();
