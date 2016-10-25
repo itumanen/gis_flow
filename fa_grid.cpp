@@ -70,6 +70,7 @@ float FA_Grid::computeFlowAt(Grid* fdGrid, int i, int j) {
 	}
 
 	if (this->isNoData(i, j)) {
+		// return zero - don't change flow accumulation
 		return 0;
 	}
 
@@ -103,6 +104,7 @@ void FA_Grid::computeFlow(Grid* fdGrid) {
 	for (int row = 0; row < this->numRows; row++) {
 		for (int col = 0; col < this->numCols; col++) {
 			if (this->isNoData(row, col)) {
+				// never calls on a nodata cell from here
 				continue;
 			}
 			this->setGridValueAt(0, 0, this->computeFlowAt(fdGrid, row, col));	
