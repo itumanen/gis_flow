@@ -102,6 +102,9 @@ float FA_Grid::computeFlowAt(Grid* fdGrid, int i, int j) {
 void FA_Grid::computeFlow(Grid* fdGrid) {
 	for (int row = 0; row < this->numRows; row++) {
 		for (int col = 0; col < this->numCols; col++) {
+			if (this->isNoData(row, col)) {
+				continue;
+			}
 			this->setGridValueAt(0, 0, this->computeFlowAt(fdGrid, row, col));	
 		}
 	}
