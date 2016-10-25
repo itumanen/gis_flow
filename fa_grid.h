@@ -14,6 +14,5 @@ private:
 
 	bool** computedGrid;
 	float** flowValues;
-	float** cache;
 	
 };

@@ -34,14 +34,6 @@ FA_Grid::FA_Grid(Grid* elevGrid) {
 		assert(this->computedGrid[i]);
 	}
 
-	// allocate cache for dynamic programming
-	this->cache = (float**) malloc(sizeof(float*) * this->numRows);
-	assert(this->cache);
-	for (int i = 0; i < this->numRows; i++) {
-		this->cache[i] = (float*) malloc(sizeof(float) * this->numCols);
-		assert(this->cache[i]);
-	}
-
 	this->initializeEmptyGrids();
 
 }
@@ -65,9 +57,7 @@ void FA_Grid::initializeEmptyGrids() {
 
 	for (int i = 0; i < this->numRows; i++) {
 		for (int j = 0; j < this->numCols; j++) {
-
 			this->computedGrid[i][j] = 0;
-			this->cache[i][j] = 0;
 		}
 	}
 
@@ -113,7 +103,7 @@ void FA_Grid::computeFlow(Grid* fdGrid) {
 	for (int row = 0; row < this->numRows; row++) {
 		for (int col = 0; col < this->numCols; col++) {
 			
-			if (!computedGrid[row][col]) {
+			if (!computedGrid[row][col] && !this->isNoData(row, col)) {
 				this->setGridValueAt(0, 0, this->computeFlowAt(fdGrid, row, col));	
 			}
 
