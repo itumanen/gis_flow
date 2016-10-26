@@ -107,7 +107,7 @@ void FA_Grid::computeFlow(Grid* fdGrid) {
 				// never calls on a nodata cell from here
 				continue;
 			}
-			this->setGridValueAt(0, 0, this->computeFlowAt(fdGrid, row, col));	
+			this->setGridValueAt(row, col, this->computeFlowAt(fdGrid, row, col));	
 		}
 	}
 }
