@@ -59,7 +59,7 @@ public:
 	void setGridValueAt(int i, int j, float value) {this->gridVals[i][j] = value; }
 	float** setGridVals();
 
-	// ~Grid(); // TODO Destructor
+	// ~Grid();
 
 protected:
 
