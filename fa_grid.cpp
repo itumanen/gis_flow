@@ -27,22 +27,14 @@ FA_Grid::FA_Grid(Grid* elevGrid) {
 	this->initializeGrid(elevGrid);
 
 	// allocate boolean array
-	this->computedGrid = (bool**) malloc(sizeof(bool*) * this->numRows);
-	assert(this->computedGrid);
-	for (int i = 0; i < this->numRows; i++) {
-		this->computedGrid[i] = (bool*) malloc(sizeof(bool) * this->numCols);
-		assert(this->computedGrid[i]);
-	}
+	// this->computedGrid = (bool**) malloc(sizeof(bool*) * this->numRows);
+	// assert(this->computedGrid);
+	// for (int i = 0; i < this->numRows; i++) {
+	// 	this->computedGrid[i] = (bool*) malloc(sizeof(bool) * this->numCols);
+	// 	assert(this->computedGrid[i]);
+	// }
 
-	// allocate cache for dynamic programming
-	this->cache = (float**) malloc(sizeof(float*) * this->numRows);
-	assert(this->cache);
-	for (int i = 0; i < this->numRows; i++) {
-		this->cache[i] = (float*) malloc(sizeof(float) * this->numCols);
-		assert(this->cache[i]);
-	}
-
-	this->initializeEmptyGrids();
+	// this->initializeEmptyGrids();
 
 }
 
@@ -61,27 +53,25 @@ void FA_Grid::initializeGrid(Grid* elevGrid) {
 	}
 }
 
-void FA_Grid::initializeEmptyGrids() {
+// void FA_Grid::initializeEmptyGrids() {
 
-	for (int i = 0; i < this->numRows; i++) {
-		for (int j = 0; j < this->numCols; j++) {
+// 	for (int i = 0; i < this->numRows; i++) {
+// 		for (int j = 0; j < this->numCols; j++) {
 
-			this->computedGrid[i][j] = 0;
-			this->cache[i][j] = 0;
-		}
-	}
+// 			this->computedGrid[i][j] = 0;
+// 			this->cache[i][j] = 0;
+// 		}
+// 	}
 
-}
+// }
 
 float FA_Grid::computeFlowAt(Grid* fdGrid, int i, int j) {
-
-	if (computedGrid[i][j]) {
-		return this->getGridValueAt(i,j);
-	}
 
 	if (this->isNoData(i, j)) {
 		return 0;
 	}
+
+	float flowValue = 1;
 
 	for (int row = -1; row < 2; row++) {
 
@@ -96,7 +86,7 @@ float FA_Grid::computeFlowAt(Grid* fdGrid, int i, int j) {
 			}
 			
 			if (this->flowsInto(fdGrid, i, j, row, col)) {  // recurse on this cell to compute total flow
-				this->setGridValueAt(i, j, this->getGridValueAt(i, j) + this->computeFlowAt(fdGrid, i + row, j + col));
+				flowValue += this->computeFlowAt(fdGrid, i + row, j + col);
 			}
 
 		}
@@ -104,14 +94,16 @@ float FA_Grid::computeFlowAt(Grid* fdGrid, int i, int j) {
 	}
 
 	// return accumulated flow value; returns 1 if nothing flows in
-	this->computedGrid[i][j] = true;
-	return this->getGridValueAt(i, j);
+	return flowValue;
 
 }
 
 void FA_Grid::computeFlow(Grid* fdGrid) {
 	for (int row = 0; row < this->numRows; row++) {
 		for (int col = 0; col < this->numCols; col++) {
+			if (this->isNoData(row,col)) {
+				continue;
+			}
 			this->setGridValueAt(0, 0, this->computeFlowAt(fdGrid, row, col));
 		}
 	}

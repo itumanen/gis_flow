@@ -9,11 +9,5 @@ public:
 	void computeFlow(Grid* fdGrid);
 	bool flowsInto(Grid* fdGrid, int i, int j, int offsetX, int offsetY);
 	void initializeEmptyGrids();
-
-private:
-
-	bool** computedGrid;
-	float** flowValues;
-	float** cache;
 	
 };
