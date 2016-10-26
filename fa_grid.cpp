@@ -104,7 +104,7 @@ void FA_Grid::computeFlow(Grid* fdGrid) {
 			if (this->isNoData(row,col)) {
 				continue;
 			}
-			this->setGridValueAt(0, 0, this->computeFlowAt(fdGrid, row, col));
+			this->setGridValueAt(row, col, this->computeFlowAt(fdGrid, row, col));
 		}
 	}
 }
