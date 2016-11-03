@@ -183,6 +183,7 @@ void Grid::writeGridToFile(char* fileName) {
 
 }
 
+// Frees memory allocated by grids
 void Grid::freeGridData() {
 	free(this->getGridValues());
 }
