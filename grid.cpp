@@ -174,11 +174,11 @@ void Grid::writeGridToFile(char* fileName) {
 	
 	for (int row = 0; row < this->numRows; row++) {
 		for (int col = 0; col < this->numCols; col++) {
-			outputFile << this->gridVals[row][col] << "\t";
+			outputFile << this->gridVals[row][col] << "  ";
 		}
-		outputFile << "\n\n";
+		outputFile << "\n";
 	}
-
+	outputFile << "\n";
 	outputFile.close();
 
 }
